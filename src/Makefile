@@ -260,3 +260,8 @@ install: all
 	$(REDIS_INSTALL) $(REDIS_CHECK_RDB_NAME) $(INSTALL_BIN)
 	$(REDIS_INSTALL) $(REDIS_CHECK_AOF_NAME) $(INSTALL_BIN)
 	@ln -sf $(REDIS_SERVER_NAME) $(INSTALL_BIN)/$(REDIS_SENTINEL_NAME)
+
+learn: learn-redis.c
+	$(REDIS_CC) learn-redis.c adlist.c zmalloc.c -o /tmp/learn-redis
+	/tmp/learn-redis
+
