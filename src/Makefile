@@ -261,7 +261,8 @@ install: all
 	$(REDIS_INSTALL) $(REDIS_CHECK_AOF_NAME) $(INSTALL_BIN)
 	@ln -sf $(REDIS_SERVER_NAME) $(INSTALL_BIN)/$(REDIS_SENTINEL_NAME)
 
-learn: learn-redis.c
-	$(REDIS_CC) learn-redis.c adlist.c zmalloc.c -o /tmp/learn-redis
-	/tmp/learn-redis
+learn-redis.o: learn-redis.c adlist.h zmalloc.h 
 
+learn: learn-redis.o adlist.o zmalloc.o
+	$(REDIS_LD) -o $@ $^ 
+	./learn
